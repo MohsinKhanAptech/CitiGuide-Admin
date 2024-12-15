@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "510274941064",
+    "project_id": "citiguide-76a32",
+    "storage_bucket": "citiguide-76a32.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510274941064:android:79c4aec2c2a96db099af3d",
+        "android_client_info": {
+          "package_name": "com.citiguide_admin.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP_-vxNg5eq9HatP7QLQcw5Ccz_DSwvYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510274941064:android:a9babe7da612b14a99af3d",
+        "android_client_info": {
+          "package_name": "com.citiguide_user.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP_-vxNg5eq9HatP7QLQcw5Ccz_DSwvYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
