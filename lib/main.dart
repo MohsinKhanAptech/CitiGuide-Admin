@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'CitiGuide Admin',
       theme: ThemeData(
         textTheme: const TextTheme(
           bodyMedium: TextStyle(
