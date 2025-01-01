@@ -42,12 +42,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyAtv0kRkUuROZqd9QbKXReH7Ctq3_slFSE',
-    appId: '1:910378647353:web:b2d3c7a91a61b048dab2e8',
+    appId: '1:910378647353:web:604a54e8ad71bde9dab2e8',
     messagingSenderId: '910378647353',
     projectId: 'citiguide-18df9',
     authDomain: 'citiguide-18df9.firebaseapp.com',
     storageBucket: 'citiguide-18df9.firebasestorage.app',
-    measurementId: 'G-60EG42N2VB',
+    measurementId: 'G-D5DZ599LJY',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -85,5 +85,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'citiguide-18df9.firebasestorage.app',
     measurementId: 'G-D5DZ599LJY',
   );
-
 }
