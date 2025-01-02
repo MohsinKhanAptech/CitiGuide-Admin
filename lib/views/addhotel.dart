@@ -23,7 +23,7 @@ class AddhotelScreen extends StatelessWidget {
               height: 50,
             ),
             TextField(
-              controller: controller.locationController,
+              controller: controller.hotelController,
               decoration: const InputDecoration(hintText: "Hotel Name"),
             ),
             const SizedBox(

@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 class resturantcontroller extends GetxController {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final TextEditingController locationController = TextEditingController();
+  final TextEditingController resturantController = TextEditingController();
   var Restaurant = <DocumentSnapshot>[].obs;
 
   var isLoading = false.obs;
@@ -49,15 +49,16 @@ class resturantcontroller extends GetxController {
 //This function can add category to your collection
   Future<void> addlocation() async {
     try {
-      DocumentReference locationRef =
-          firestore.collection('locations').doc(locationController.text.trim());
+      DocumentReference locationRef = firestore
+          .collection('locations')
+          .doc(resturantController.text.trim());
 
       DocumentSnapshot locationDoc = await locationRef.get();
       if (!locationDoc.exists) {
         // Create category document if it doesn't exist
-        await locationRef.set({'name': locationController.text.trim()});
+        await locationRef.set({'name': resturantController.text.trim()});
         Get.snackbar("Success", "location created successfully.");
-        locationController.clear();
+        resturantController.clear();
       } else {
         log("location already exists.");
       }

@@ -3,7 +3,8 @@
 import 'package:citiguide_admin/controllers/Resturantcontroller.dart';
 import 'package:citiguide_admin/controllers/addresturantcontroller.dart';
 import 'package:citiguide_admin/controllers/hotelcontroller.dart';
-import 'package:citiguide_admin/views/Resturant.dart';
+import 'package:citiguide_admin/views/addResturant.dart';
+
 import 'package:citiguide_admin/views/addhotel.dart';
 import 'package:citiguide_admin/views/hotel.dart';
 import 'package:flutter/material.dart';
@@ -177,7 +178,9 @@ class ManagecitiScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               //  var user = procontroller.userdata[index];
-              Get.to(resturantcontroller());
+              Get.to(() => AddResturant(
+                    mylist: categoryName,
+                  ));
             },
             child: const Text("Add Resturant"),
           ),

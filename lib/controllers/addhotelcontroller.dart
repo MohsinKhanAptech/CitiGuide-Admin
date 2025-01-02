@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 class hotelcontroller extends GetxController {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final TextEditingController locationController = TextEditingController();
+  final TextEditingController hotelController = TextEditingController();
   var hotel = <DocumentSnapshot>[].obs;
 
   var isLoading = false.obs;
@@ -48,14 +48,14 @@ class hotelcontroller extends GetxController {
   Future<void> addlocation() async {
     try {
       DocumentReference locationRef =
-          firestore.collection('Hotels').doc(locationController.text.trim());
+          firestore.collection('Hotels').doc(hotelController.text.trim());
 
       DocumentSnapshot locationDoc = await locationRef.get();
       if (!locationDoc.exists) {
         // Create category document if it doesn't exist
-        await locationRef.set({'hotel name': locationController.text.trim()});
+        await locationRef.set({'hotel name': hotelController.text.trim()});
         Get.snackbar("Success", "location created successfully.");
-        locationController.clear();
+        hotelController.clear();
       } else {
         log("location already exists.");
       }
