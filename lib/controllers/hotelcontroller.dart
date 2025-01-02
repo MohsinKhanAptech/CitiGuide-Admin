@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 
-class Resturantcontroller extends GetxController {
+class Hotelcontroller extends GetxController {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final TextEditingController productNameController = TextEditingController();
   final TextEditingController productPriceController = TextEditingController();

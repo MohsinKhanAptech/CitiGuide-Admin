@@ -2,15 +2,15 @@ import 'package:citiguide_admin/controllers/Resturantcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AddProductScreen extends StatelessWidget {
+class Addhotel extends StatelessWidget {
   // final Map list;
   final String mylist;
-  const AddProductScreen({super.key, required this.mylist});
+  const Addhotel({super.key, required this.mylist});
 
   @override
   Widget build(BuildContext context) {
     // final controller = Get.put(Mainscreencontroller());
-    final procontroller = Get.put(Proscreencontroller());
+    final procontroller = Get.put(Resturantcontroller());
 
     return Scaffold(
       body: Padding(

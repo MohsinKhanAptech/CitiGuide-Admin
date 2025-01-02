@@ -1,5 +1,6 @@
 import 'package:citiguide_admin/views/addlocationscreen.dart';
 import 'package:citiguide_admin/views/displayloction.dart';
+import 'package:citiguide_admin/views/manageciti.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:citiguide_admin/firebase_options.dart';
@@ -69,7 +70,7 @@ class MyApp extends StatelessWidget {
                   color: Colors.black,
                   child: TextButton(
                       onPressed: () {
-                        // Get.to();
+                        Get.to(ManagecitiScreen);
                       },
                       child: Text("display City"))),
             ],

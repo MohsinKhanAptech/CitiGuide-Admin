@@ -120,6 +120,7 @@
 
 import 'package:citiguide_admin/controllers/locationcontroller.dart';
 import 'package:citiguide_admin/views/addlocationscreen.dart';
+import 'package:citiguide_admin/views/manageciti.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -160,12 +161,12 @@ class DisplaylocationScreen extends StatelessWidget {
                           //       list: user,
                           //     ));
 
-                          // Get.to(() => ManageProductsScreen(
-                          //       categoryId: homecon.location[index]
-                          //           .id, // Pass the category ID
-                          //       categoryName:
-                          //           user['name'], // Pass the category name
-                          //     ));
+                          Get.to(() => ManagecitiScreen(
+                                categoryId: homecon
+                                    .location[index].id, // Pass the category ID
+                                categoryName:
+                                    user['name'], // Pass the category name
+                              ));
                         },
                         child: const Text("View City"),
                       ),

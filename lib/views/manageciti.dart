@@ -1,5 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:citiguide_admin/controllers/Resturantcontroller.dart';
-import 'package:citiguide_admin/views/addResturant.dart';
+import 'package:citiguide_admin/controllers/addresturantcontroller.dart';
+import 'package:citiguide_admin/controllers/hotelcontroller.dart';
+import 'package:citiguide_admin/views/Resturant.dart';
+import 'package:citiguide_admin/views/addhotel.dart';
+import 'package:citiguide_admin/views/hotel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,14 +21,15 @@ class ManagecitiScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final procontroller = Get.put(Proscreencontroller());
+    final procontroller = Get.put(Resturantcontroller());
+    final hprocontroller = Get.put(Hotelcontroller());
 
     // Fetch products when the screen is opened
     procontroller.fetchProducts(categoryId);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Manage Products - $categoryName"),
+        title: Text("Manage City - $categoryName"),
         leading: IconButton(
             onPressed: () {
               Get.back();
@@ -33,7 +40,7 @@ class ManagecitiScreen extends StatelessWidget {
         children: [
           Obx(() {
             if (procontroller.products.isEmpty) {
-              return const Center(child: Text("No products found."));
+              return const Center(child: Text("No data found."));
             }
 
             return ListView.builder(
@@ -170,11 +177,19 @@ class ManagecitiScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               //  var user = procontroller.userdata[index];
-              Get.to(() => AddProductScreen(
-                    mylist: categoryName,
-                  ));
+              Get.to(resturantcontroller());
             },
-            child: const Text("Add Product"),
+            child: const Text("Add Resturant"),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              //  var user = procontroller.userdata[index];
+              Get.to(AddhotelScreen());
+            },
+            child: const Text("Add Hotel"),
           ),
         ],
       ),
