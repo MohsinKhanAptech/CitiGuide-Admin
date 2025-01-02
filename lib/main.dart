@@ -65,6 +65,13 @@ class MyApp extends StatelessWidget {
                         Get.to(DisplaylocationScreen());
                       },
                       child: Text("display Location"))),
+              Title(
+                  color: Colors.black,
+                  child: TextButton(
+                      onPressed: () {
+                        // Get.to();
+                      },
+                      child: Text("display City"))),
             ],
           ),
         ),

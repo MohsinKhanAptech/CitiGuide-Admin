@@ -167,7 +167,7 @@ class DisplaylocationScreen extends StatelessWidget {
                           //           user['name'], // Pass the category name
                           //     ));
                         },
-                        child: const Text("Manage product"),
+                        child: const Text("View City"),
                       ),
                       const SizedBox(width: 10),
                       IconButton(
@@ -247,7 +247,7 @@ class DisplaylocationScreen extends StatelessWidget {
               onPressed: () {
                 Get.to(AddlocationScreen());
               },
-              child: const Text("Create Category"),
+              child: const Text("Create City"),
             ),
           ],
         ),
