@@ -1,4 +1,4 @@
-import 'package:citiguide_admin/views/view_locations.dart';
+import 'package:citiguide_admin/views/city_view.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,8 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
+
+// TODO: change the database main document name from locations to cities.
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -44,8 +46,8 @@ class MainView extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () => Get.to(const ViewLocations()),
-              child: const Text('Locations >'),
+              onPressed: () => Get.to(const CityView()),
+              child: const Text('Cities >'),
             ),
           ],
         ),

@@ -1,17 +1,50 @@
+import 'package:citiguide_admin/controllers/city_controller.dart';
+import 'package:citiguide_admin/views/category_view.dart';
 import 'package:citiguide_admin/main.dart';
-import 'package:citiguide_admin/controllers/locationcontroller.dart';
-import 'package:citiguide_admin/views/view_city.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-class ViewLocations extends StatelessWidget {
-  const ViewLocations({super.key});
+class CityView extends StatelessWidget {
+  const CityView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LocationController());
-    var locations = controller.locationsSnap;
+    final controller = Get.put(CityController());
+    var cities = controller.citiesSnap;
+
+    void addCityDialog() {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Add City.'),
+            content: TextField(
+              controller: controller.cityTextController,
+              autofocus: true,
+              decoration: const InputDecoration(
+                labelText: 'City Name',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  controller.addCity().then((value) {
+                    if (context.mounted) Navigator.pop(context);
+                  });
+                },
+                child: const Text('Confirm'),
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -20,7 +53,7 @@ class ViewLocations extends StatelessWidget {
           children: [
             const Center(
               child: Text(
-                'Locations.',
+                'Cities.',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -31,19 +64,25 @@ class ViewLocations extends StatelessWidget {
             Obx(
               () {
                 if (controller.isLoading.value) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return const SizedBox(
+                    height: 240,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
-                if (controller.locationsList.isEmpty) {
-                  return const Center(
-                    child: Text('No data found...'),
+                if (controller.citiesList.isEmpty) {
+                  return const SizedBox(
+                    height: 240,
+                    child: Center(
+                      child: Text('No data found...'),
+                    ),
                   );
                 } else {
                   return SizedBox(
                     height: 240,
                     child: ListView.builder(
-                      itemCount: locations.length,
+                      itemCount: cities.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4),
@@ -53,11 +92,13 @@ class ViewLocations extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () {
                                   Get.to(
-                                    ViewCity(cityName: locations[index].id),
+                                    CategoryView(
+                                      cityName: cities[index].get('name'),
+                                    ),
                                   );
                                 },
                                 child: Text(
-                                  '${locations[index].id} >',
+                                  '${cities[index].get('name')} >',
                                 ),
                               ),
                             ),
@@ -71,39 +112,8 @@ class ViewLocations extends StatelessWidget {
             ),
             const Padding(padding: EdgeInsets.all(24), child: Divider()),
             ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text('Add Locaiton.'),
-                      content: TextField(
-                        controller: controller.locationController,
-                        autofocus: true,
-                        decoration: const InputDecoration(
-                          labelText: 'Locaiton Name',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            controller.addLocation().then((value) {
-                              if (context.mounted) Navigator.pop(context);
-                            });
-                          },
-                          child: const Text('Add'),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              child: const Text('+ Add Location'),
+              onPressed: addCityDialog,
+              child: const Text('+ Add City'),
             ),
             const SizedBox(height: 12),
             ElevatedButton(
