@@ -19,41 +19,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'CitiGuide Admin',
         theme: ThemeData(useMaterial3: true),
-        home: const ViewLocations()
-        // drawer: Drawer(
-        //   child: ListView(
-        //     children: [
-        //       Title(
-        //         color: Colors.black,
-        //         child: TextButton(
-        //           onPressed: () {
-        //             Get.to(const AddlocationScreen());
-        //           },
-        //           child: const Text("Create Location"),
-        //         ),
-        //       ),
-        //       Title(
-        //         color: Colors.black,
-        //         child: TextButton(
-        //           onPressed: () {
-        //             Get.to(const DisplaylocationScreen());
-        //           },
-        //           child: const Text("display Location"),
-        //         ),
-        //       ),
-        //       Title(
-        //         color: Colors.black,
-        //         child: TextButton(
-        //           onPressed: () {
-        //             Get.to(ManagecitiScreen);
-        //           },
-        //           child: const Text("display City"),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        );
+        home: const MainView());
   }
 }
 

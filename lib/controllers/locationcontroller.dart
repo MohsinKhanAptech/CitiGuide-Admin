@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LocationController extends GetxController {
-  final TextEditingController locationController = TextEditingController();
-  var locationsSnap = <DocumentSnapshot>[].obs;
-
   var isLoading = false.obs;
   var locationsList = <Map<String, dynamic>>[].obs;
+  var locationsSnap = <DocumentSnapshot>[].obs;
+
+  final TextEditingController locationController = TextEditingController();
 
   @override
   void onInit() {
@@ -34,24 +34,25 @@ class LocationController extends GetxController {
         isLoading.value = false;
       }
     } catch (e) {
-      print(e.toString());
+      log("Error fetching location data: $e");
+      Get.snackbar("Error", "Failed to fetch location data.");
     }
   }
 
-//This function can add category to your collection
-  Future<void> addlocation() async {
+  Future<void> addLocation() async {
     try {
       DocumentReference locationRef =
           firestore.collection('locations').doc(locationController.text.trim());
 
       DocumentSnapshot locationDoc = await locationRef.get();
+
       if (!locationDoc.exists) {
-        // Create category document if it doesn't exist
         await locationRef.set({'name': locationController.text.trim()});
         Get.snackbar("Success", "location created successfully.");
         locationController.clear();
+        fetchdata();
       } else {
-        log("location already exists.");
+        Get.snackbar("Error", "Location already exists.");
       }
     } catch (e) {
       log("Error creating location: $e");

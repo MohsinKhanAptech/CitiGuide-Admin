@@ -10,8 +10,7 @@ class ViewLocations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LocationController());
-    var locals = controller.locationsSnap;
-    TextEditingController textController = TextEditingController();
+    var locations = controller.locationsSnap;
 
     return SafeArea(
       child: Scaffold(
@@ -27,7 +26,7 @@ class ViewLocations extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            const Padding(padding: EdgeInsets.all(24), child: Divider()),
             Obx(
               () {
                 if (controller.isLoading.value) {
@@ -41,17 +40,20 @@ class ViewLocations extends StatelessWidget {
                   );
                 } else {
                   return SizedBox(
-                    height: 200,
+                    height: 240,
                     child: ListView.builder(
-                      itemCount: locals.length,
+                      itemCount: locations.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           child: Center(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: Text(
-                                '${locals[index].id} >',
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(minWidth: 240),
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                child: Text(
+                                  '${locations[index].id} >',
+                                ),
                               ),
                             ),
                           ),
@@ -62,7 +64,7 @@ class ViewLocations extends StatelessWidget {
                 }
               },
             ),
-            const SizedBox(height: 12),
+            const Padding(padding: EdgeInsets.all(24), child: Divider()),
             ElevatedButton(
               onPressed: () {
                 showDialog(
@@ -71,7 +73,7 @@ class ViewLocations extends StatelessWidget {
                     return AlertDialog(
                       title: const Text('Add Locaiton.'),
                       content: TextField(
-                        controller: textController,
+                        controller: controller.locationController,
                         autofocus: true,
                         decoration: const InputDecoration(
                           labelText: 'Locaiton Name',
@@ -80,13 +82,15 @@ class ViewLocations extends StatelessWidget {
                       ),
                       actions: [
                         TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+                          onPressed: () => Navigator.pop(context),
                           child: const Text('Cancel'),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.addLocation().then((value) {
+                              if (context.mounted) Navigator.pop(context);
+                            });
+                          },
                           child: const Text('Add'),
                         ),
                       ],
