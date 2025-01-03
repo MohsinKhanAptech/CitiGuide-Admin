@@ -11,8 +11,12 @@ import 'package:file_picker/file_picker.dart';
 
 class Resturantcontroller extends GetxController {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final TextEditingController productNameController = TextEditingController();
-  final TextEditingController productPriceController = TextEditingController();
+  final TextEditingController RestaurantNameController = TextEditingController();
+  final TextEditingController RestaurantDescriptionController = TextEditingController();
+    final TextEditingController RestaurantAddressController = TextEditingController();
+     final TextEditingController RestauranLongitudeController = TextEditingController();
+      final TextEditingController RestaurantLatitudeController = TextEditingController();
+       final TextEditingController RestaurantRatingController = TextEditingController();
   var categories = <DocumentSnapshot>[].obs;
   var products = <DocumentSnapshot>[].obs;
 
@@ -105,7 +109,7 @@ class Resturantcontroller extends GetxController {
   }
 
   Future<void> addProduct(String catname) async {
-    double? price = double.tryParse(productPriceController.text);
+    double? price = double.tryParse(RestaurantDescriptionController.text);
     final imageUrl = await uploadToCloudinary();
 
     if (imageUrl == null) {
@@ -113,7 +117,7 @@ class Resturantcontroller extends GetxController {
     }
 
     if (catname.isEmpty ||
-        productNameController.text.trim().isEmpty ||
+        RestaurantNameController.text.trim().isEmpty ||
         price == null) {
       Get.snackbar(
           "Error", "Please provide valid product and category details");
@@ -123,11 +127,11 @@ class Resturantcontroller extends GetxController {
     try {
       // await addCategoryIfNotExists(categoryName);
       CollectionReference productsCollection = firestore
-          .collection('categories')
+          .collection('Restaurants')
           .doc(catname)
           .collection('products');
       await productsCollection.add({
-        'name': productNameController.text.trim(),
+        'name': RestaurantNameController.text.trim(),
         'price': price,
         'imageUrl': imageUrl,
       });
@@ -143,7 +147,7 @@ class Resturantcontroller extends GetxController {
   Future<void> fetchProducts(String categoryId) async {
     try {
       final QuerySnapshot productData = await firestore
-          .collection('categories')
+          .collection('Restaurants')
           .doc(categoryId)
           .collection('products')
           .get();
@@ -160,7 +164,7 @@ class Resturantcontroller extends GetxController {
       String newName, double newPrice) async {
     try {
       await firestore
-          .collection('categories')
+          .collection('Restaurants')
           .doc(categoryId)
           .collection('products')
           .doc(productId)
@@ -178,7 +182,7 @@ class Resturantcontroller extends GetxController {
     try {
       // Reference to the product document
       await firestore
-          .collection('categories')
+          .collection('Restaurants')
           .doc(categoryId)
           .collection('products')
           .doc(productId)

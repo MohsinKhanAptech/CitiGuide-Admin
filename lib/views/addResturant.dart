@@ -32,15 +32,36 @@ class AddResturant extends StatelessWidget {
               height: 10,
             ),
             TextField(
-              controller: procontroller.productNameController,
-              decoration: const InputDecoration(hintText: "Product Name"),
+              controller: procontroller.RestaurantNameController,
+              decoration: const InputDecoration(hintText: "Restaurant Name"),
             ),
             const SizedBox(
               height: 10,
             ),
             TextField(
-              controller: procontroller.productPriceController,
-              decoration: const InputDecoration(hintText: "Product Price"),
+              controller: procontroller.RestaurantDescriptionController,
+              decoration: const InputDecoration(hintText: "Restaurant Description"),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+             TextField(
+              controller: procontroller.RestauranLongitudeController,
+              decoration: const InputDecoration(hintText: "Restaurant Longitude"),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+             TextField(
+              controller: procontroller.RestaurantLatitudeController,
+              decoration: const InputDecoration(hintText: "Restaurant Latitude"),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+             TextField(
+              controller: procontroller.RestaurantRatingController,
+              decoration: const InputDecoration(hintText: "Restaurent Rating"),
             ),
             const SizedBox(
               height: 30,
