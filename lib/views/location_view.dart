@@ -1,5 +1,6 @@
 import 'package:citiguide_admin/main.dart';
 import 'package:citiguide_admin/controllers/locationcontroller.dart';
+import 'package:citiguide_admin/views/view_city.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -48,9 +49,13 @@ class ViewLocations extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           child: Center(
                             child: ConstrainedBox(
-                              constraints: BoxConstraints(minWidth: 240),
+                              constraints: const BoxConstraints(minWidth: 240),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.to(
+                                    ViewCity(cityName: locations[index].id),
+                                  );
+                                },
                                 child: Text(
                                   '${locations[index].id} >',
                                 ),
