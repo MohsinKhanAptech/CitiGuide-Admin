@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:citiguide_admin/controllers/Resturantcontroller.dart';
-import 'package:citiguide_admin/controllers/addresturantcontroller.dart';
+
 import 'package:citiguide_admin/controllers/hotelcontroller.dart';
 import 'package:citiguide_admin/views/addResturant.dart';
 
 import 'package:citiguide_admin/views/addhotel.dart';
-import 'package:citiguide_admin/views/hotel.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
