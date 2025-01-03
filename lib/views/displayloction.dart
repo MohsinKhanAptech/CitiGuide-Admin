@@ -153,7 +153,7 @@ class DisplaylocationScreen extends StatelessWidget {
 
                   return Row(
                     children: [
-                      Text(user['name']),
+                      // Text(user['name']),
                       const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: () {
@@ -161,53 +161,54 @@ class DisplaylocationScreen extends StatelessWidget {
                           //       list: user,
                           //     ));
 
-                          Get.to(() => ManagecitiScreen(
-                                categoryId: homecon
-                                    .location[index].id, // Pass the category ID
-                                categoryName:
-                                    user['name'], // Pass the category name
-                              ));
+                          // Get.to(() => ManagecitiScreen(
+                          //       categoryId: homecon
+                          //           .location[index].id, // Pass the category ID
+                          //       categoryName:
+                          //           user['name'], // Pass the category name
+                          //     ));
                         },
                         child: const Text("View City"),
                       ),
                       const SizedBox(width: 10),
                       IconButton(
                         icon: const Icon(Icons.edit, color: Colors.green),
-                        onPressed: () async {
-                          final newName = await showDialog<String>(
-                            context: context,
-                            builder: (context) {
-                              final controller =
-                                  TextEditingController(text: user['name']);
-                              return AlertDialog(
-                                title: const Text("Edit Category"),
-                                content: TextField(
-                                  controller: controller,
-                                  decoration: const InputDecoration(
-                                    hintText: "Enter new category name",
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text("Cancel"),
-                                  ),
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, controller.text),
-                                    child: const Text("Save"),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                        onPressed: () {},
+                        // onPressed: () async {
+                        //   final newName = await showDialog<String>(
+                        //     context: context,
+                        //     builder: (context) {
+                        //       final controller =
+                        //           TextEditingController(text: user['name']);
+                        //       return AlertDialog(
+                        //         title: const Text("Edit Category"),
+                        //         content: TextField(
+                        //           controller: controller,
+                        //           decoration: const InputDecoration(
+                        //             hintText: "Enter new category name",
+                        //           ),
+                        //         ),
+                        //         actions: [
+                        //           TextButton(
+                        //             onPressed: () => Navigator.pop(context),
+                        //             child: const Text("Cancel"),
+                        //           ),
+                        //           TextButton(
+                        //             onPressed: () =>
+                        //                 Navigator.pop(context, controller.text),
+                        //             child: const Text("Save"),
+                        //           ),
+                        //         ],
+                        //       );
+                        //     },
+                        //   );
 
-                          if (newName != null &&
-                              newName.trim().isNotEmpty &&
-                              newName != user['name']) {
-                            await homecon.updateCategory(docId, newName.trim());
-                          }
-                        },
+                        //   if (newName != null &&
+                        //       newName.trim().isNotEmpty &&
+                        //       newName != user['name']) {
+                        //     await homecon.updateCategory(docId, newName.trim());
+                        //   }
+                        // },
                       ),
                       const SizedBox(width: 10),
                       IconButton(
