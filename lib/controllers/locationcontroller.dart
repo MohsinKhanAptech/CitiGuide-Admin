@@ -1,21 +1,16 @@
-import 'dart:developer';
+import 'package:citiguide_admin/utils/constants.dart';
 
-// ignore: unused_import
-import 'package:citiguide_admin/main.dart';
+import 'dart:developer';
+import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-// ignore: camel_case_types
-class mainscreencontroller extends GetxController {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+class LocationController extends GetxController {
   final TextEditingController locationController = TextEditingController();
-  var location = <DocumentSnapshot>[].obs;
+  var locationsSnap = <DocumentSnapshot>[].obs;
 
   var isLoading = false.obs;
-  var userdata = <Map<String, dynamic>>[].obs;
+  var locationsList = <Map<String, dynamic>>[].obs;
 
   @override
   void onInit() {
@@ -30,14 +25,13 @@ class mainscreencontroller extends GetxController {
           await FirebaseFirestore.instance.collection("locations").get();
 
       if (data.docs.isNotEmpty) {
-        List<Map<String, dynamic>> userlist = [];
+        List<Map<String, dynamic>> locations = [];
         for (var doc in data.docs) {
-          userlist.add(doc.data() as Map<String, dynamic>);
+          locations.add(doc.data() as Map<String, dynamic>);
         }
-        userdata.value = userlist;
-        location.value = data.docs;
+        locationsList.value = locations;
+        locationsSnap.value = data.docs;
         isLoading.value = false;
-        // print(userdata.value.toString());
       }
     } catch (e) {
       print(e.toString());

@@ -9,7 +9,7 @@ class AddlocationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(mainscreencontroller());
+    final controller = Get.put(LocationController());
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),

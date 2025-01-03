@@ -1,12 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:citiguide_admin/controllers/Resturantcontroller.dart';
-import 'package:citiguide_admin/controllers/addresturantcontroller.dart';
 import 'package:citiguide_admin/controllers/hotelcontroller.dart';
 import 'package:citiguide_admin/views/addResturant.dart';
 
 import 'package:citiguide_admin/views/addhotel.dart';
-import 'package:citiguide_admin/views/hotel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,7 +52,7 @@ class ManagecitiScreen extends StatelessWidget {
                 var productData = product.data() as Map<String, dynamic>;
 
                 return ListTile(
-                  leading: Container(
+                  leading: SizedBox(
                     width: 50,
                     height: 50,
                     child: Image(

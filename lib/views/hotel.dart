@@ -26,7 +26,7 @@ class Addhotel extends StatelessWidget {
             ),
             Text(
               mylist,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               height: 10,
@@ -96,14 +96,14 @@ class Addhotel extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
                     procontroller.selectedFileName.value.isNotEmpty
                         ? procontroller.selectedFileName.value
                         : "tap to select the image",
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   )
                 ],
               );
