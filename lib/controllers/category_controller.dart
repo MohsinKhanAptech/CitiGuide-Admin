@@ -1,3 +1,4 @@
+import 'package:citiguide_admin/controllers/city_controller.dart';
 import 'package:citiguide_admin/utils/constants.dart';
 
 import 'dart:developer';
@@ -11,6 +12,8 @@ class CategoryController extends GetxController {
 
   var isLoading = false.obs;
 
+  late CityController cityController;
+
   var categoriesList = <Map<String, dynamic>>[].obs;
   var categoriesSnap = <DocumentSnapshot>[].obs;
 
@@ -21,6 +24,7 @@ class CategoryController extends GetxController {
   void onInit() {
     super.onInit();
     fetchCategories();
+    cityController = Get.put(CityController());
   }
 
   Future<void> fetchCategories() async {
@@ -57,6 +61,7 @@ class CategoryController extends GetxController {
           .update({'name': cityName});
 
       Get.back(closeOverlays: true);
+      cityController.fetchCities();
       log('City updated successfully.');
       Get.snackbar('Success', 'City updated successfully');
       cityTextController.clear();
@@ -71,6 +76,7 @@ class CategoryController extends GetxController {
       await firestore.collection('cities').doc(cityID).delete();
 
       Get.back(closeOverlays: true);
+      cityController.fetchCities();
       log('City deleted successfully.');
       Get.snackbar('Success', 'City deleted successfully');
     } catch (e) {

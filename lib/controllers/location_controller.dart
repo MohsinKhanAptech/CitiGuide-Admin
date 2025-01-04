@@ -1,3 +1,4 @@
+import 'package:citiguide_admin/controllers/category_controller.dart';
 import 'package:citiguide_admin/utils/constants.dart';
 
 import 'dart:developer';
@@ -12,6 +13,8 @@ class LocationController extends GetxController {
 
   var isLoading = false.obs;
 
+  late CategoryController categoryController;
+
   var locationsList = <Map<String, dynamic>>[].obs;
   var locationsSnap = <DocumentSnapshot>[].obs;
 
@@ -21,6 +24,7 @@ class LocationController extends GetxController {
   void onInit() {
     super.onInit();
     fetchLocations();
+    categoryController = Get.put(CategoryController(cityID));
   }
 
   Future<void> fetchLocations() async {
@@ -62,6 +66,7 @@ class LocationController extends GetxController {
           .update({'name': categoryName});
 
       Get.back(closeOverlays: true);
+      categoryController.fetchCategories();
       log('Category updated successfully.');
       Get.snackbar('Success', 'Category updated successfully');
       categoryTextController.clear();
@@ -81,6 +86,7 @@ class LocationController extends GetxController {
           .delete();
 
       Get.back(closeOverlays: true);
+      categoryController.fetchCategories();
       log('Category deleted successfully.');
       Get.snackbar('Success', 'Category deleted successfully');
     } catch (e) {
@@ -133,6 +139,7 @@ class LocationController extends GetxController {
 
         Get.back(closeOverlays: true);
         Get.snackbar('Success', 'Location created successfully.');
+        fetchLocations();
 
         locationNameController.clear();
         locationDescriptionController.clear();
@@ -177,6 +184,7 @@ class LocationController extends GetxController {
 
         Get.back(closeOverlays: true);
         Get.snackbar('Success', 'Location created successfully.');
+        fetchLocations();
 
         locationNameController.clear();
         locationDescriptionController.clear();
