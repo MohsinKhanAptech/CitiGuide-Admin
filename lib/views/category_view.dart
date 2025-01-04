@@ -1,5 +1,5 @@
 import 'package:citiguide_admin/controllers/category_controller.dart';
-import 'package:citiguide_admin/views/locaiton_view.dart';
+import 'package:citiguide_admin/views/location_view.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
