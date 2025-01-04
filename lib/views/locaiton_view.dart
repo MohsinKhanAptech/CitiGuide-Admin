@@ -1,4 +1,5 @@
 import 'package:citiguide_admin/controllers/location_controller.dart';
+import 'package:citiguide_admin/views/location_add_view.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -6,18 +7,26 @@ import 'package:flutter/material.dart';
 class LocationView extends StatelessWidget {
   const LocationView({
     super.key,
+    required this.cityID,
     required this.cityName,
+    required this.categoryID,
     required this.categoryName,
   });
+  final String cityID;
   final String cityName;
+  final String categoryID;
   final String categoryName;
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LocationController(cityName, categoryName));
+    final controller = Get.put(
+      LocationController(cityID, categoryID),
+    );
     var locations = controller.locationsSnap;
 
     void updateCityDialogue() {
+      controller.categoryTextController.text = categoryName;
+
       showDialog(
         context: context,
         builder: (context) {
@@ -74,39 +83,6 @@ class LocationView extends StatelessWidget {
                   'Confirm',
                   style: TextStyle(color: Colors.red),
                 ),
-              ),
-            ],
-          );
-        },
-      );
-    }
-
-    void addCategoryDialog() {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Add Category.'),
-            content: TextField(
-              controller: controller.categoryTextController,
-              autofocus: true,
-              decoration: const InputDecoration(
-                labelText: 'Category Name',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  controller.addLocation().then((value) {
-                    if (context.mounted) Navigator.pop(context);
-                  });
-                },
-                child: const Text('Confirm'),
               ),
             ],
           );
@@ -206,8 +182,10 @@ class LocationView extends StatelessWidget {
             ),
             const Padding(padding: EdgeInsets.all(24), child: Divider()),
             ElevatedButton(
-              onPressed: addCategoryDialog,
-              child: const Text('+ Add Category'),
+              onPressed: () => Get.to(
+                LocationAddView(cityName: cityName, categoryName: categoryName),
+              ),
+              child: const Text('+ Add Location'),
             ),
             const SizedBox(height: 12),
             ElevatedButton(

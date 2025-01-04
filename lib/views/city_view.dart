@@ -92,6 +92,7 @@ class CityView extends StatelessWidget {
                                 onPressed: () {
                                   Get.to(
                                     CategoryView(
+                                      cityID: cities[index].id,
                                       cityName: cities[index].get('name'),
                                     ),
                                   );

@@ -1,4 +1,3 @@
-import 'package:citiguide_admin/views/category_view.dart';
 import 'package:citiguide_admin/utils/constants.dart';
 
 import 'dart:developer';
@@ -7,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LocationController extends GetxController {
-  LocationController(this.cityName, this.categoryName);
-  final String cityName;
-  final String categoryName;
+  LocationController(this.cityID, this.categoryID);
+  final String cityID;
+  final String categoryID;
 
   var isLoading = false.obs;
 
@@ -17,7 +16,6 @@ class LocationController extends GetxController {
   var locationsSnap = <DocumentSnapshot>[].obs;
 
   final TextEditingController categoryTextController = TextEditingController();
-  final TextEditingController locationTextController = TextEditingController();
 
   @override
   void onInit() {
@@ -30,9 +28,9 @@ class LocationController extends GetxController {
       isLoading.value = true;
       QuerySnapshot snap = await FirebaseFirestore.instance
           .collection('cities')
-          .doc(cityName)
+          .doc(cityID)
           .collection('categories')
-          .doc(categoryName)
+          .doc(categoryID)
           .collection('locations')
           .get();
 
@@ -54,21 +52,22 @@ class LocationController extends GetxController {
 
   Future<void> updateCategory() async {
     try {
+      String? categoryName = categoryTextController.text.trim();
+
       await firestore
           .collection('cities')
-          .doc(cityName)
+          .doc(cityID)
           .collection('categories')
-          .doc(categoryName)
-          .update({'name': categoryTextController});
+          .doc(categoryID)
+          .update({'name': categoryName});
 
-      log('City updated successfully.');
-      Get.snackbar('Success', 'City updated successfully');
+      Get.back(closeOverlays: true);
+      log('Category updated successfully.');
+      Get.snackbar('Success', 'Category updated successfully');
       categoryTextController.clear();
-      fetchLocations();
-      Get.to(CategoryView(cityName: cityName));
     } catch (e) {
-      log('Error updating : $e');
-      Get.snackbar('Error', 'Failed to update city');
+      log('Error updating category: $e');
+      Get.snackbar('Error', 'Failed to update category');
     }
   }
 
@@ -76,45 +75,127 @@ class LocationController extends GetxController {
     try {
       await firestore
           .collection('cities')
-          .doc(cityName)
+          .doc(cityID)
           .collection('categories')
-          .doc(categoryName)
+          .doc(categoryID)
           .delete();
 
-      log('City deleted successfully.');
-      Get.snackbar('Success', 'City deleted successfully');
-      fetchLocations();
+      Get.back(closeOverlays: true);
+      log('Category deleted successfully.');
+      Get.snackbar('Success', 'Category deleted successfully');
     } catch (e) {
       log('Error deleting cities: $e');
       Get.snackbar('Error', 'Failed to delete city');
     }
   }
 
+  final TextEditingController locationNameController = TextEditingController();
+  final TextEditingController locationDescriptionController =
+      TextEditingController();
+  final TextEditingController locationLatitudeController =
+      TextEditingController();
+  final TextEditingController locationLongitudeController =
+      TextEditingController();
+
   Future<void> addLocation() async {
     try {
+      String? locationName = locationNameController.text.trim();
+      String? locationDescription = locationDescriptionController.text.trim();
+      double? locationLatitude =
+          double.tryParse(locationLatitudeController.text);
+      double? locationLongitude =
+          double.tryParse(locationLongitudeController.text);
+
       DocumentReference ref = firestore
           .collection('cities')
-          .doc(cityName)
+          .doc(cityID)
           .collection('categories')
-          .doc(categoryName)
+          .doc(categoryID)
           .collection('locations')
-          .doc(locationTextController.text.trim());
+          .doc(locationNameController.text.trim());
 
       DocumentSnapshot doc = await ref.get();
 
       if (doc.exists) {
         Get.snackbar('Error', 'Location already exists.');
-      } else if (locationTextController.text.trim().isEmpty) {
+      } else if (locationName.isEmpty ||
+          locationDescription.isEmpty ||
+          locationLatitude != null ||
+          locationLongitude != null) {
         Get.snackbar('Error', 'Please enter valid data.');
       } else {
-        await ref.set({'name': locationTextController.text.trim()});
+        await ref.set({
+          'name': locationName,
+          'description': locationDescription,
+          'geopiont': [locationLatitude, locationLongitude],
+          'rating': 0,
+        });
+
+        Get.back(closeOverlays: true);
         Get.snackbar('Success', 'Location created successfully.');
-        locationTextController.clear();
-        fetchLocations();
+
+        locationNameController.clear();
+        locationDescriptionController.clear();
+        locationLatitudeController.clear();
+        locationLongitudeController.clear();
       }
     } catch (e) {
       log('Error creating location: $e');
       Get.snackbar('Error', 'Failed to create location');
     }
+  }
+
+  Future<void> updateLocation() async {
+    try {
+      String? locationName = locationNameController.text.trim();
+      String? locationDescription = locationDescriptionController.text.trim();
+      double? locationLatitude =
+          double.tryParse(locationLatitudeController.text);
+      double? locationLongitude =
+          double.tryParse(locationLongitudeController.text);
+
+      DocumentReference ref = firestore
+          .collection('cities')
+          .doc(cityID)
+          .collection('categories')
+          .doc(categoryID)
+          .collection('locations')
+          .doc(locationNameController.text.trim());
+
+      if (locationName.isEmpty ||
+          locationDescription.isEmpty ||
+          locationLatitude != null ||
+          locationLongitude != null) {
+        Get.snackbar('Error', 'Please enter valid data.');
+      } else {
+        await ref.update({
+          'name': locationName,
+          'description': locationDescription,
+          'geopiont': [locationLatitude, locationLongitude],
+          'rating': 0,
+        });
+
+        Get.back(closeOverlays: true);
+        Get.snackbar('Success', 'Location created successfully.');
+
+        locationNameController.clear();
+        locationDescriptionController.clear();
+        locationLatitudeController.clear();
+        locationLongitudeController.clear();
+      }
+    } catch (e) {
+      log('Error creating location: $e');
+      Get.snackbar('Error', 'Failed to create location');
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    categoryTextController.dispose();
+    locationNameController.dispose();
+    locationDescriptionController.dispose();
+    locationLatitudeController.dispose();
+    locationLongitudeController.dispose();
   }
 }

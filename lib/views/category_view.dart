@@ -5,15 +5,18 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class CategoryView extends StatelessWidget {
-  const CategoryView({super.key, required this.cityName});
+  const CategoryView({super.key, required this.cityID, required this.cityName});
+  final String cityID;
   final String cityName;
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CategoryController(cityName));
+    final controller = Get.put(CategoryController(cityID));
     var categories = controller.categoriesSnap;
 
     void updateCityDialogue() {
+      controller.cityTextController.text = cityName;
+
       showDialog(
         context: context,
         builder: (context) {
@@ -53,7 +56,7 @@ class CategoryView extends StatelessWidget {
           return AlertDialog(
             title: const Text('Delete City.'),
             content: Text(
-              'Are you sure you want to delete $cityName? \n this action can not be reverted',
+              'Are you sure you want to delete $cityName?\n this action can not be reverted',
             ),
             actions: [
               TextButton(
@@ -182,6 +185,8 @@ class CategoryView extends StatelessWidget {
                                   Get.to(
                                     LocationView(
                                       cityName: cityName,
+                                      cityID: cityID,
+                                      categoryID: categories[index].id,
                                       categoryName:
                                           categories[index].get('name'),
                                     ),

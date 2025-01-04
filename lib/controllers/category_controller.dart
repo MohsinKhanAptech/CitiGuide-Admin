@@ -1,5 +1,4 @@
 import 'package:citiguide_admin/utils/constants.dart';
-import 'package:citiguide_admin/views/city_view.dart';
 
 import 'dart:developer';
 import 'package:get/get.dart';
@@ -7,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CategoryController extends GetxController {
-  CategoryController(this.cityName);
-  final String cityName;
+  CategoryController(this.cityID);
+  final String cityID;
 
   var isLoading = false.obs;
 
@@ -29,7 +28,7 @@ class CategoryController extends GetxController {
       isLoading.value = true;
       QuerySnapshot snap = await FirebaseFirestore.instance
           .collection('cities')
-          .doc(cityName)
+          .doc(cityID)
           .collection('categories')
           .get();
 
@@ -51,16 +50,16 @@ class CategoryController extends GetxController {
 
   Future<void> updateCity() async {
     try {
+      String cityName = cityTextController.text.trim();
       await firestore
           .collection('cities')
-          .doc(cityName)
-          .update({'name': cityTextController});
+          .doc(cityID)
+          .update({'name': cityName});
 
+      Get.back(closeOverlays: true);
       log('City updated successfully.');
       Get.snackbar('Success', 'City updated successfully');
       cityTextController.clear();
-      fetchCategories();
-      Get.to(const CityView());
     } catch (e) {
       log('Error updating city: $e');
       Get.snackbar('Error', 'Failed to update city');
@@ -69,11 +68,11 @@ class CategoryController extends GetxController {
 
   Future<void> deleteCity() async {
     try {
-      await firestore.collection('cities').doc(cityName).delete();
+      await firestore.collection('cities').doc(cityID).delete();
 
+      Get.back(closeOverlays: true);
       log('City deleted successfully.');
       Get.snackbar('Success', 'City deleted successfully');
-      fetchCategories();
     } catch (e) {
       log('Error deleting cities: $e');
       Get.snackbar('Error', 'Failed to delete city');
@@ -82,20 +81,33 @@ class CategoryController extends GetxController {
 
   Future<void> addCategory() async {
     try {
-      DocumentReference ref = firestore
+      String? categoryName = categoryTextController.text.trim();
+
+      QuerySnapshot snap = await firestore
           .collection('cities')
-          .doc(cityName)
+          .doc(cityID)
           .collection('categories')
-          .doc(categoryTextController.text.trim());
+          .get();
 
-      DocumentSnapshot doc = await ref.get();
+      bool exists() {
+        bool exists = false;
+        for (var doc in snap.docs) {
+          if (doc.get('name') == categoryName) exists = true;
+        }
+        return exists;
+      }
 
-      if (doc.exists) {
+      if (exists()) {
         Get.snackbar('Error', 'Category already exists.');
-      } else if (categoryTextController.text.trim().isEmpty) {
+      } else if (categoryName.isEmpty) {
         Get.snackbar('Error', 'Please enter valid data.');
       } else {
-        await ref.set({'name': categoryTextController.text.trim()});
+        await firestore
+            .collection('cities')
+            .doc(cityID)
+            .collection('categories')
+            .add({'name': categoryName});
+
         Get.snackbar('Success', 'Category created successfully.');
         categoryTextController.clear();
         fetchCategories();
@@ -104,5 +116,12 @@ class CategoryController extends GetxController {
       log('Error creating category: $e');
       Get.snackbar('Error', 'Failed to create category');
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    cityTextController.dispose();
+    categoryTextController.dispose();
   }
 }

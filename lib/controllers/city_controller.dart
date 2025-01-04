@@ -43,17 +43,25 @@ class CityController extends GetxController {
 
   Future<void> addCity() async {
     try {
-      DocumentReference ref =
-          firestore.collection('cities').doc(cityTextController.text.trim());
+      String? cityName = cityTextController.text.trim();
 
-      DocumentSnapshot doc = await ref.get();
+      QuerySnapshot snap = await firestore.collection('cities').get();
 
-      if (doc.exists) {
+      bool exists() {
+        bool exists = false;
+        for (var doc in snap.docs) {
+          if (doc.get('name') == cityName) exists = true;
+        }
+        return exists;
+      }
+
+      if (exists()) {
         Get.snackbar('Error', 'City already exists.');
-      } else if (cityTextController.text.trim().isEmpty) {
+      } else if (cityName.isEmpty) {
         Get.snackbar('Error', 'Please enter valid data.');
       } else {
-        await ref.set({'name': cityTextController.text.trim()});
+        await firestore.collection('cities').add({'name': cityName});
+
         Get.snackbar('Success', 'City created successfully.');
         cityTextController.clear();
         fetchCities();
@@ -62,5 +70,11 @@ class CityController extends GetxController {
       log('Error creating city: $e');
       Get.snackbar('Error', 'Failed to create city');
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    cityTextController.dispose();
   }
 }
