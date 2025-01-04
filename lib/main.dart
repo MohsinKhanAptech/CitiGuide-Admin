@@ -32,24 +32,27 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Center(
-              child: Text(
-                'Welcome, Admin.',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+        body: Center(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(vertical: 48),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Welcome, Admin.',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
+                const SizedBox(height: 24),
+                ElevatedButton(
+                  onPressed: () => Get.to(const CityView()),
+                  child: const Text('Cities >'),
+                ),
+              ],
             ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () => Get.to(const CityView()),
-              child: const Text('Cities >'),
-            ),
-          ],
+          ),
         ),
       ),
     );

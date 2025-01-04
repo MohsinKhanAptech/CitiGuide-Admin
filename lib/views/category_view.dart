@@ -14,7 +14,7 @@ class CategoryView extends StatelessWidget {
     final controller = Get.put(CategoryController(cityID));
     var categories = controller.categoriesSnap;
 
-    void updateCityDialogue() {
+    void updateCityDialog() {
       controller.cityTextController.text = cityName;
 
       showDialog(
@@ -49,7 +49,7 @@ class CategoryView extends StatelessWidget {
       );
     }
 
-    void deleteCityDialogue() {
+    void deleteCityDialog() {
       showDialog(
         context: context,
         builder: (context) {
@@ -115,107 +115,111 @@ class CategoryView extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Text(
-                      'City: $cityName.',
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+        body: Center(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(vertical: 48),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        'City: $cityName.',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: updateCityDialogue,
-                    icon: const Icon(Icons.edit),
-                  ),
-                  IconButton(
-                    onPressed: deleteCityDialogue,
-                    icon: const Icon(Icons.delete),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'Categories.',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const Padding(padding: EdgeInsets.all(24), child: Divider()),
-            Obx(
-              () {
-                if (controller.isLoading.value) {
-                  return const SizedBox(
-                    height: 240,
-                    child: Center(
-                      child: CircularProgressIndicator(),
+                    IconButton(
+                      onPressed: updateCityDialog,
+                      icon: const Icon(Icons.edit),
                     ),
-                  );
-                }
-                if (controller.categoriesList.isEmpty) {
-                  return const SizedBox(
-                    height: 240,
-                    child: Center(
-                      child: Text('No data found...'),
+                    IconButton(
+                      onPressed: deleteCityDialog,
+                      icon: const Icon(Icons.delete),
                     ),
-                  );
-                } else {
-                  return SizedBox(
-                    height: 240,
-                    child: ListView.builder(
-                      itemCount: categories.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4),
-                          child: Center(
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(minWidth: 240),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Get.to(
-                                    LocationView(
-                                      cityName: cityName,
-                                      cityID: cityID,
-                                      categoryID: categories[index].id,
-                                      categoryName:
-                                          categories[index].get('name'),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  'Categories.',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.all(24), child: Divider()),
+                Obx(
+                  () {
+                    if (controller.isLoading.value) {
+                      return const SizedBox(
+                        height: 240,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    if (controller.categoriesList.isEmpty) {
+                      return const SizedBox(
+                        height: 240,
+                        child: Center(
+                          child: Text('No data found...'),
+                        ),
+                      );
+                    } else {
+                      return SizedBox(
+                        height: 240,
+                        child: ListView.builder(
+                          itemCount: categories.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: Center(
+                                child: ConstrainedBox(
+                                  constraints:
+                                      const BoxConstraints(minWidth: 240),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Get.to(
+                                        LocationView(
+                                          cityName: cityName,
+                                          cityID: cityID,
+                                          categoryID: categories[index].id,
+                                          categoryName:
+                                              categories[index].get('name'),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      '${categories[index].get('name')} >',
                                     ),
-                                  );
-                                },
-                                child: Text(
-                                  '${categories[index].get('name')} >',
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }
-              },
+                            );
+                          },
+                        ),
+                      );
+                    }
+                  },
+                ),
+                const Padding(padding: EdgeInsets.all(24), child: Divider()),
+                ElevatedButton(
+                  onPressed: addCategoryDialog,
+                  child: const Text('+ Add Category'),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: () => Get.back(),
+                  child: const Text('< Go Back'),
+                ),
+              ],
             ),
-            const Padding(padding: EdgeInsets.all(24), child: Divider()),
-            ElevatedButton(
-              onPressed: addCategoryDialog,
-              child: const Text('+ Add Category'),
-            ),
-            const SizedBox(height: 12),
-            ElevatedButton(
-              onPressed: () => Get.back(),
-              child: const Text('< Go Back'),
-            ),
-          ],
+          ),
         ),
       ),
     );

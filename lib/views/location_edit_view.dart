@@ -2,20 +2,40 @@ import 'package:citiguide_admin/controllers/location_controller.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class LocationAddView extends StatelessWidget {
-  const LocationAddView({
+class LocationEditView extends StatelessWidget {
+  const LocationEditView({
     super.key,
     required this.cityName,
     required this.categoryName,
+    required this.locationIndex,
   });
 
   final String cityName;
   final String categoryName;
+  final int locationIndex;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LocationController(cityName, categoryName));
+    var locations = controller.locationsSnap;
+
+    final String locationID = locations[locationIndex].id;
+
+    final String locationName = locations[locationIndex].get('name');
+    final String locationDescription =
+        locations[locationIndex].get('description');
+    final String locationAddress = locations[locationIndex].get('address');
+    final GeoPoint locationGeoPoint = locations[locationIndex].get('geopoint');
+
+    controller.locationNameController.text = locationName;
+    controller.locationDescriptionController.text = locationDescription;
+    controller.locationAddressController.text = locationAddress;
+    controller.locationLatitudeController.text =
+        locationGeoPoint.latitude.toString();
+    controller.locationLongitudeController.text =
+        locationGeoPoint.longitude.toString();
 
     return SafeArea(
       child: Scaffold(
@@ -139,7 +159,7 @@ class LocationAddView extends StatelessWidget {
                 ),
                 const Padding(padding: EdgeInsets.all(24), child: Divider()),
                 ElevatedButton(
-                  onPressed: () => controller.addLocation(),
+                  onPressed: () => controller.updateLocation(locationID),
                   child: const Text('+ Submit'),
                 ),
                 const SizedBox(height: 12),

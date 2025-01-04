@@ -80,7 +80,7 @@ class CategoryController extends GetxController {
       log('City deleted successfully.');
       Get.snackbar('Success', 'City deleted successfully');
     } catch (e) {
-      log('Error deleting cities: $e');
+      log('Error deleting city: $e');
       Get.snackbar('Error', 'Failed to delete city');
     }
   }
