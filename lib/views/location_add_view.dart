@@ -52,6 +52,25 @@ class LocationAddView extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  Container(
+                    height: 42,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor.withAlpha(64),
+                      border: Border.all(width: 0.5),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Location Image',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
                   TextField(
                     controller: controller.locationNameController,
                     decoration: const InputDecoration(
