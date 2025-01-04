@@ -1,6 +1,5 @@
 import 'package:citiguide_admin/controllers/city_controller.dart';
 import 'package:citiguide_admin/views/category_view.dart';
-import 'package:citiguide_admin/main.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +116,7 @@ class CityView extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             ElevatedButton(
-              onPressed: () => Get.to(const MainView()),
+              onPressed: () => Get.back(),
               child: const Text('< Go Back'),
             ),
           ],

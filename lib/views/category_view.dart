@@ -1,6 +1,5 @@
 import 'package:citiguide_admin/controllers/category_controller.dart';
 import 'package:citiguide_admin/views/locaiton_view.dart';
-import 'package:citiguide_admin/views/city_view.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -208,7 +207,7 @@ class CategoryView extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             ElevatedButton(
-              onPressed: () => Get.to(const CityView()),
+              onPressed: () => Get.back(),
               child: const Text('< Go Back'),
             ),
           ],

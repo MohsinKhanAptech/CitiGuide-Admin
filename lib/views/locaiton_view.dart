@@ -1,5 +1,4 @@
 import 'package:citiguide_admin/controllers/location_controller.dart';
-import 'package:citiguide_admin/views/category_view.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -212,7 +211,7 @@ class LocationView extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             ElevatedButton(
-              onPressed: () => Get.to(CategoryView(cityName: cityName)),
+              onPressed: () => Get.back(),
               child: const Text('< Go Back'),
             ),
           ],
