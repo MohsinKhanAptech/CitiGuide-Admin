@@ -21,6 +21,7 @@ dependencies:
   latlong2: ^0.9.1
   flutter_map_cancellable_tile_provider: ^3.0.2
   internet_connection_checker: ^3.0.1
+  crypto: ^3.0.6
 
 dev_dependencies:
   flutter_test:

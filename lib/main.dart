@@ -1,6 +1,8 @@
 import 'package:citiguide_admin/utils/constants.dart';
 import 'package:citiguide_admin/views/city_view.dart';
 import 'package:citiguide_admin/views/internet_unavaliable_view.dart';
+import 'package:citiguide_admin/views/password_view.dart';
+import 'package:citiguide_admin/views/update_password_view.dart';
 
 import 'dart:async';
 import 'package:get/get.dart';
@@ -39,6 +41,8 @@ class _MainViewState extends State<MainView> {
   Timer? waitForReconnect;
   late StreamSubscription<InternetConnectionStatus> subscription;
 
+  bool verified = false;
+
   @override
   void initState() {
     super.initState();
@@ -67,10 +71,18 @@ class _MainViewState extends State<MainView> {
     );
   }
 
+  void verify() {
+    setState(() => verified = true);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (!internetAvailable) {
       return InternetUnavailableView();
+    } else if (!verified) {
+      return PasswordView(
+        verify: verify,
+      );
     }
     return SafeArea(
       child: Scaffold(
@@ -91,6 +103,11 @@ class _MainViewState extends State<MainView> {
                 ElevatedButton(
                   onPressed: () => Get.to(const CityView()),
                   child: const Text('Cities >'),
+                ),
+                const SizedBox(height: 24),
+                ElevatedButton(
+                  onPressed: () => Get.to(const UpdatePasswordView()),
+                  child: const Text('Change Password >'),
                 ),
               ],
             ),
