@@ -1,17 +1,19 @@
+import 'package:citiguide_admin/utils/constants.dart';
 import 'package:citiguide_admin/views/city_view.dart';
+import 'package:citiguide_admin/views/internet_unavaliable_view.dart';
 
+import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:citiguide_admin/firebase_options.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
-
-// TODO: change the database main document name from locations to cities.
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,11 +27,51 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainView extends StatelessWidget {
+class MainView extends StatefulWidget {
   const MainView({super.key});
 
   @override
+  State<MainView> createState() => _MainViewState();
+}
+
+class _MainViewState extends State<MainView> {
+  bool internetAvailable = true;
+  Timer? waitForReconnect;
+  late StreamSubscription<InternetConnectionStatus> subscription;
+
+  @override
+  void initState() {
+    super.initState();
+
+    subscription = connectionChecker.onStatusChange.listen(
+      (InternetConnectionStatus status) {
+        if (status == InternetConnectionStatus.connected) {
+          setState(() => internetAvailable = true);
+          waitForReconnect?.cancel();
+        } else {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Center(
+                  child: Text('internet unavailable, please reconnect.'),
+                ),
+                duration: Duration(milliseconds: 4500),
+              ),
+            );
+          }
+          waitForReconnect = Timer(Duration(milliseconds: 5000), () {
+            setState(() => internetAvailable = false);
+          });
+        }
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (!internetAvailable) {
+      return InternetUnavailableView();
+    }
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -56,5 +98,11 @@ class MainView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    connectionChecker.dispose();
+    super.dispose();
   }
 }
