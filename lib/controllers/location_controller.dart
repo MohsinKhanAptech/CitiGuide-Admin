@@ -191,7 +191,7 @@ class LocationController extends GetxController {
     try {
       String? locationName = locationNameController.text.trim();
       String? locationDescription = locationDescriptionController.text.trim();
-      String? locationAddress = locationDescriptionController.text.trim();
+      String? locationAddress = locationAddressController.text.trim();
       double? locationLatitude =
           double.tryParse(locationLatitudeController.text);
       double? locationLongitude =
@@ -265,7 +265,7 @@ class LocationController extends GetxController {
     try {
       String? locationName = locationNameController.text.trim();
       String? locationDescription = locationDescriptionController.text.trim();
-      String? locationAddress = locationDescriptionController.text.trim();
+      String? locationAddress = locationAddressController.text.trim();
       double? locationLatitude =
           double.tryParse(locationLatitudeController.text);
       double? locationLongitude =
