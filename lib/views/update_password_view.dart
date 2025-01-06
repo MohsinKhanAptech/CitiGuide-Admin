@@ -1,6 +1,8 @@
 import 'package:citiguide_admin/controllers/password_controller.dart';
-import 'package:flutter/material.dart';
+import 'package:citiguide_admin/components/my_text_field.dart';
+
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 class UpdatePasswordView extends StatelessWidget {
   const UpdatePasswordView({super.key});
@@ -33,20 +35,20 @@ class UpdatePasswordView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 24),
-                    TextField(
+                    MyTextField(
                       controller: controller.passwordController,
-                      decoration: const InputDecoration(
-                        labelText: 'Old Password',
-                        border: OutlineInputBorder(),
-                      ),
+                      labelText: 'Old Password',
+                      obscureText: true,
+                      suffixIcon: Icons.visibility,
+                      suffixIconActive: Icons.visibility_off,
                     ),
                     SizedBox(height: 24),
-                    TextField(
+                    MyTextField(
                       controller: newPasswordController,
-                      decoration: const InputDecoration(
-                        labelText: 'New Password',
-                        border: OutlineInputBorder(),
-                      ),
+                      labelText: 'New Password',
+                      obscureText: true,
+                      suffixIcon: Icons.visibility,
+                      suffixIconActive: Icons.visibility_off,
                     ),
                     SizedBox(height: 24),
                     ElevatedButton(
@@ -56,7 +58,7 @@ class UpdatePasswordView extends StatelessWidget {
                       },
                       child: const Text('Confirm'),
                     ),
-                    SizedBox(height: 24),
+                    SizedBox(height: 12),
                     ElevatedButton(
                       onPressed: () => Get.back(),
                       child: const Text('Cancel'),
