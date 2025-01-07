@@ -44,7 +44,7 @@ class PasswordView extends StatelessWidget {
                   ),
                   SizedBox(height: 24),
                   ElevatedButton(
-                    onPressed: () => controller.verifyPassword(),
+                    onPressed: controller.verifyPassword,
                     child: const Text('Confirm'),
                   ),
                 ],

@@ -186,7 +186,7 @@ class LocationDetailView extends StatelessWidget {
                 }),
                 const SizedBox(height: 12),
                 ElevatedButton(
-                  onPressed: () => Get.back(),
+                  onPressed: Get.back,
                   child: const Text('< Go Back'),
                 ),
               ],

@@ -199,7 +199,12 @@ class LocationView extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton(
-                  onPressed: () => Get.back(),
+                  onPressed: controller.fetchLocations,
+                  child: const Text('@ Refresh'),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: Get.back,
                   child: const Text('< Go Back'),
                 ),
               ],

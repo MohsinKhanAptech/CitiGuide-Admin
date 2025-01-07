@@ -57,9 +57,7 @@ class LocationAddView extends StatelessWidget {
                     children: [
                       Obx(() {
                         return InkWell(
-                          onTap: () {
-                            controller.pickImage();
-                          },
+                          onTap: controller.pickImage,
                           child: Container(
                             height: 80,
                             width: double.infinity,
@@ -139,12 +137,12 @@ class LocationAddView extends StatelessWidget {
                 ),
                 const Padding(padding: EdgeInsets.all(24), child: Divider()),
                 ElevatedButton(
-                  onPressed: () => controller.addLocation(),
+                  onPressed: controller.addLocation,
                   child: const Text('+ Submit'),
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton(
-                  onPressed: () => Get.back(),
+                  onPressed: Get.back,
                   child: const Text('< Cancel'),
                 ),
               ],

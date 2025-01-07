@@ -214,7 +214,12 @@ class CategoryView extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton(
-                  onPressed: () => Get.back(),
+                  onPressed: controller.fetchCategories,
+                  child: const Text('@ Refresh'),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: Get.back,
                   child: const Text('< Go Back'),
                 ),
               ],

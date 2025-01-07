@@ -119,7 +119,12 @@ class CityView extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton(
-                  onPressed: () => Get.back(),
+                  onPressed: controller.fetchCities,
+                  child: const Text('@ Refresh'),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: Get.back,
                   child: const Text('< Go Back'),
                 ),
               ],

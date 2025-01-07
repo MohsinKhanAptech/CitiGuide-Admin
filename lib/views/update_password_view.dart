@@ -60,7 +60,7 @@ class UpdatePasswordView extends StatelessWidget {
                     ),
                     SizedBox(height: 12),
                     ElevatedButton(
-                      onPressed: () => Get.back(),
+                      onPressed: Get.back,
                       child: const Text('Cancel'),
                     ),
                   ],

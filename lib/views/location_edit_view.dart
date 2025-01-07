@@ -77,9 +77,7 @@ class LocationEditView extends StatelessWidget {
                     children: [
                       Obx(() {
                         return InkWell(
-                          onTap: () {
-                            controller.pickImage();
-                          },
+                          onTap: controller.pickImage,
                           child: Container(
                             height: 80,
                             width: double.infinity,
@@ -164,7 +162,7 @@ class LocationEditView extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton(
-                  onPressed: () => Get.back(),
+                  onPressed: Get.back,
                   child: const Text('< Cancel'),
                 ),
               ],

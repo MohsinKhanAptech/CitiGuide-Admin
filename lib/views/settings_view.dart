@@ -30,7 +30,7 @@ class SettingsView extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: () => Get.back(),
+                  onPressed: Get.back,
                   child: const Text('< Go Back'),
                 ),
               ],
