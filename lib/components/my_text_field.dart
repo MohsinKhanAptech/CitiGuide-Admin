@@ -6,11 +6,13 @@ class MyTextField extends StatefulWidget {
     required this.controller,
     required this.labelText,
     this.obscureText = false,
+    this.autofocus = false,
     this.suffixIcon,
     this.suffixIconActive,
   });
   final TextEditingController controller;
   final bool obscureText;
+  final bool autofocus;
   final String labelText;
   final IconData? suffixIcon;
   final IconData? suffixIconActive;
@@ -48,6 +50,7 @@ class _MyTextFieldState extends State<MyTextField> {
       return TextField(
         obscureText: obscureText,
         controller: widget.controller,
+        autofocus: widget.autofocus,
         decoration: InputDecoration(
           labelText: widget.labelText,
           suffixIcon: IconButton(onPressed: onPressed, icon: Icon(icon)),

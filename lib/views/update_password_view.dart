@@ -39,6 +39,7 @@ class UpdatePasswordView extends StatelessWidget {
                       controller: controller.passwordController,
                       labelText: 'Old Password',
                       obscureText: true,
+                      autofocus: true,
                       suffixIcon: Icons.visibility,
                       suffixIconActive: Icons.visibility_off,
                     ),

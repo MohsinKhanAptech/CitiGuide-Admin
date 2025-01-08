@@ -37,6 +37,7 @@ class PasswordView extends StatelessWidget {
                     child: MyTextField(
                       controller: controller.passwordController,
                       obscureText: true,
+                      autofocus: true,
                       labelText: 'Password',
                       suffixIcon: Icons.visibility,
                       suffixIconActive: Icons.visibility_off,
