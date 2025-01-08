@@ -90,51 +90,60 @@ class LocationDetailView extends StatelessWidget {
 
                   return Column(
                     children: [
-                      SizedBox(
-                        height: 200,
-                        child: Image.network(
-                          locations[locationIndex].get('imageUrl'),
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes !=
-                                        null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                        loadingProgress.expectedTotalBytes!
-                                    : null,
+                      ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 500),
+                        child: SizedBox(
+                          height: 200,
+                          child: Image.network(
+                            locations[locationIndex].get('imageUrl'),
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              }
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 500),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 12),
+                              ListTile(title: Text('Name:')),
+                              LocationText(locationName),
+                              SizedBox(height: 12),
+                              ListTile(title: Text('Description:')),
+                              LocationText(locationDescription),
+                              SizedBox(height: 12),
+                              ListTile(title: Text('Address:')),
+                              LocationText(locationAddress),
+                              SizedBox(height: 12),
+                              ListTile(title: Text('Latitude, Longitude:')),
+                              LocationText(
+                                '${locationGeoPoint.latitude}, ${locationGeoPoint.longitude}',
                               ),
-                            );
-                          },
+                              SizedBox(height: 12),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(height: 12),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 12),
-                            ListTile(title: Text('Name:')),
-                            LocationText(locationName),
-                            SizedBox(height: 12),
-                            ListTile(title: Text('Description:')),
-                            LocationText(locationDescription),
-                            SizedBox(height: 12),
-                            ListTile(title: Text('Address:')),
-                            LocationText(locationAddress),
-                            SizedBox(height: 12),
-                            ListTile(title: Text('Latitude, Longitude:')),
-                            LocationText(
-                              '${locationGeoPoint.latitude}, ${locationGeoPoint.longitude}',
-                            ),
-                            SizedBox(height: 12),
-                          ],
-                        ),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 500),
+                        child: LocaitonMap(locationGeoPoint: locationGeoPoint),
                       ),
-                      SizedBox(height: 12),
-                      LocaitonMap(locationGeoPoint: locationGeoPoint),
                     ],
                   );
                 }),
@@ -210,7 +219,7 @@ class LocationText extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       title: Text(text),
-      titleTextStyle: TextStyle(fontSize: 16),
+      titleTextStyle: TextStyle(fontSize: 16, color: Colors.black),
     );
   }
 }

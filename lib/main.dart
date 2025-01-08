@@ -1,6 +1,5 @@
 import 'package:citiguide_admin/views/internet_unavaliable_view.dart';
 import 'package:citiguide_admin/views/settings_view.dart';
-import 'package:citiguide_admin/views/update_password_view.dart';
 import 'package:citiguide_admin/views/password_view.dart';
 import 'package:citiguide_admin/utils/constants.dart';
 import 'package:citiguide_admin/views/city_view.dart';
