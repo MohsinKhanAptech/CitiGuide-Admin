@@ -92,34 +92,21 @@ class LocationDetailView extends StatelessWidget {
                     children: [
                       ConstrainedBox(
                         constraints: BoxConstraints(maxWidth: 500),
-                        child: SizedBox(
-                          height: 200,
-                          child: Image.network(
-                            locations[locationIndex].get('imageUrl'),
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child;
-                              }
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: 500),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: Column(
                             children: [
+                              ConstrainedBox(
+                                constraints: BoxConstraints(maxHeight: 500),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Image.network(
+                                    locations[locationIndex].get('imageUrl'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 12),
                               SizedBox(height: 12),
                               ListTile(title: Text('Name:')),
                               LocationText(locationName),
