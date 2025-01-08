@@ -17,15 +17,32 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    initConstants();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return Obx(() {
+      return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'CitiGuide Admin',
-        theme: ThemeData(useMaterial3: true),
-        home: const MainView());
+        themeMode: currentTheme.value,
+        theme: ThemeData.light(useMaterial3: true),
+        darkTheme: ThemeData.dark(useMaterial3: true),
+        home: const MainView(),
+      );
+    });
   }
 }
 
