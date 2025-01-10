@@ -79,6 +79,8 @@ class LocationDetailView extends StatelessWidget {
                     );
                   }
 
+                  final String locationImageUrl =
+                      locations[locationIndex].get('imageUrl');
                   final String locationName =
                       locations[locationIndex].get('name');
                   final String locationDescription =
@@ -100,9 +102,13 @@ class LocationDetailView extends StatelessWidget {
                                 constraints: BoxConstraints(maxHeight: 500),
                                 child: SizedBox(
                                   width: double.infinity,
-                                  child: Image.network(
-                                    locations[locationIndex].get('imageUrl'),
-                                    fit: BoxFit.cover,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      image: DecorationImage(
+                                        image: NetworkImage(locationImageUrl),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
