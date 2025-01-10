@@ -12,6 +12,35 @@ class PasswordView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(PasswordController(verify: verify));
 
+    void masterPasswordDialog() {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Enter Master Password.'),
+            content: PasswordField(
+              controller: controller.masterPasswordController,
+              labelText: 'Master Password',
+              autofocus: true,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  controller.verifyMasterPassword();
+                  if (context.mounted) Navigator.pop(context);
+                },
+                child: const Text('Confirm'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -41,6 +70,11 @@ class PasswordView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 24),
+                  TextButton(
+                    onPressed: masterPasswordDialog,
+                    child: Text('Use Master Password'),
+                  ),
+                  SizedBox(height: 12),
                   ElevatedButton(
                     onPressed: controller.verifyPassword,
                     child: const Text('Confirm'),

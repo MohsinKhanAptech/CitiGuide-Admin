@@ -15,8 +15,11 @@ class PasswordController extends GetxController {
   static var attempsLeft = 3;
 
   late String password;
+  late String masterPassword;
 
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController masterPasswordController =
+      TextEditingController();
 
   @override
   void onInit() {
@@ -32,6 +35,7 @@ class PasswordController extends GetxController {
           .doc('admin')
           .get();
       password = doc.get('password');
+      masterPassword = doc.get('masterPassword');
     } catch (e) {
       log('Error, something went wrong while fetching password: $e');
       Get.snackbar('Error', 'Could not fetch password.');
@@ -60,6 +64,28 @@ class PasswordController extends GetxController {
       Get.snackbar('Error', 'Could not verify password.');
     }
     passwordController.clear();
+  }
+
+  Future<void> verifyMasterPassword() async {
+    try {
+      var encryptedPassword = sha256.convert(
+        utf8.encode(masterPasswordController.text.trim()),
+      );
+      isValid.value = masterPassword == encryptedPassword.toString();
+
+      if (isValid.value) {
+        verify!();
+      } else {
+        Get.snackbar(
+          'Wrong master password.',
+          'Please enter valid master password.',
+        );
+      }
+    } catch (e) {
+      log('Error, something went wrong while verifying password: $e');
+      Get.snackbar('Error', 'Could not verify master password.');
+    }
+    masterPasswordController.clear();
   }
 
   Future<void> updatePassword(String newPassword) async {
