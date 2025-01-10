@@ -1,5 +1,5 @@
 import 'package:citiguide_admin/controllers/password_controller.dart';
-import 'package:citiguide_admin/components/my_text_field.dart';
+import 'package:citiguide_admin/components/password_field.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +34,10 @@ class PasswordView extends StatelessWidget {
                     constraints: BoxConstraints(
                       maxWidth: 240,
                     ),
-                    child: MyTextField(
+                    child: PasswordField(
                       controller: controller.passwordController,
-                      obscureText: true,
                       autofocus: true,
                       labelText: 'Password',
-                      suffixIcon: Icons.visibility,
-                      suffixIconActive: Icons.visibility_off,
                     ),
                   ),
                   SizedBox(height: 24),

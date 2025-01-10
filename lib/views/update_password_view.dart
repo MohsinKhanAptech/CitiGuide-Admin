@@ -1,5 +1,5 @@
 import 'package:citiguide_admin/controllers/password_controller.dart';
-import 'package:citiguide_admin/components/my_text_field.dart';
+import 'package:citiguide_admin/components/password_field.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -28,28 +28,22 @@ class UpdatePasswordView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Enter Password',
+                      'Update Password',
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: 24),
-                    MyTextField(
+                    PasswordField(
                       controller: controller.passwordController,
                       labelText: 'Old Password',
-                      obscureText: true,
                       autofocus: true,
-                      suffixIcon: Icons.visibility,
-                      suffixIconActive: Icons.visibility_off,
                     ),
                     SizedBox(height: 24),
-                    MyTextField(
+                    PasswordField(
                       controller: newPasswordController,
                       labelText: 'New Password',
-                      obscureText: true,
-                      suffixIcon: Icons.visibility,
-                      suffixIconActive: Icons.visibility_off,
                     ),
                     SizedBox(height: 24),
                     ElevatedButton(
