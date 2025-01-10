@@ -122,6 +122,35 @@ class PasswordController extends GetxController {
     passwordController.clear();
   }
 
+  Future<void> resetPassword(String newPassword) async {
+    try {
+      String encryptedPassword = sha256
+          .convert(utf8.encode(masterPasswordController.text.trim()))
+          .toString();
+
+      String encryptedNewPassword =
+          sha256.convert(utf8.encode(newPassword)).toString();
+
+      if (masterPassword != encryptedPassword) {
+        Get.snackbar('Wrong Password.', 'Please enter the correct password.');
+      } else {
+        isLoading.value = true;
+
+        await FirebaseFirestore.instance
+            .collection('admin')
+            .doc('admin')
+            .update({'password': encryptedNewPassword});
+
+        Get.back();
+        Get.snackbar('Success', 'Password updated.');
+      }
+    } catch (e) {
+      log('Error, something went wrong while updating password: $e');
+      Get.snackbar('Error', 'Could not update password.');
+    }
+    masterPasswordController.clear();
+  }
+
   @override
   void dispose() {
     super.dispose();

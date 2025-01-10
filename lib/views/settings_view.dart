@@ -1,4 +1,5 @@
 import 'package:citiguide_admin/utils/constants.dart';
+import 'package:citiguide_admin/views/reset_password_view.dart';
 import 'package:citiguide_admin/views/update_password_view.dart';
 
 import 'package:flutter/material.dart';
@@ -26,13 +27,18 @@ class SettingsView extends StatelessWidget {
                 ),
                 const SizedBox(height: 42),
                 ElevatedButton(
+                  onPressed: () => changeTheme(),
+                  child: const Text('Change Theme >'),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
                   onPressed: () => Get.to(const UpdatePasswordView()),
                   child: const Text('Change Password >'),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 12),
                 ElevatedButton(
-                  onPressed: () => changeTheme(),
-                  child: const Text('Change Theme >'),
+                  onPressed: () => Get.to(const ResetPasswordView()),
+                  child: const Text('Reset Password >'),
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
