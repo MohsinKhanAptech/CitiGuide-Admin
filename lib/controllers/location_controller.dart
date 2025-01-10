@@ -189,7 +189,7 @@ class LocationController extends GetxController {
 
   Future<void> addLocation() async {
     try {
-      String? locationName = locationNameController.text.trim();
+      String? locationName = locationNameController.text.toLowerCase().trim();
       String? locationDescription = locationDescriptionController.text.trim();
       String? locationAddress = locationAddressController.text.trim();
       double? locationLatitude =
@@ -263,7 +263,7 @@ class LocationController extends GetxController {
 
   Future<void> updateLocation(String locationID) async {
     try {
-      String? locationName = locationNameController.text.trim();
+      String? locationName = locationNameController.text.toLowerCase().trim();
       String? locationDescription = locationDescriptionController.text.trim();
       String? locationAddress = locationAddressController.text.trim();
       double? locationLatitude =
