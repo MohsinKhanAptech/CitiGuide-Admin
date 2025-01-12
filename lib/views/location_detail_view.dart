@@ -203,12 +203,10 @@ class LocationText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      tileColor: Colors.grey[200],
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
       title: Text(text),
-      titleTextStyle: TextStyle(fontSize: 16, color: Colors.black),
     );
   }
 }
