@@ -223,39 +223,42 @@ class LocaitonMap extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
       child: SizedBox(
         height: 250,
-        child: FlutterMap(
-          options: MapOptions(
-            initialCenter: LatLng(
-              locationGeoPoint.latitude,
-              locationGeoPoint.longitude,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: FlutterMap(
+            options: MapOptions(
+              initialCenter: LatLng(
+                locationGeoPoint.latitude,
+                locationGeoPoint.longitude,
+              ),
+              initialZoom: 18,
+              minZoom: 16,
+              maxZoom: 20,
             ),
-            initialZoom: 18,
-            minZoom: 16,
-            maxZoom: 20,
+            children: [
+              TileLayer(
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                tileProvider: CancellableNetworkTileProvider(),
+              ),
+              MarkerLayer(
+                markers: [
+                  Marker(
+                    point: LatLng(
+                      locationGeoPoint.latitude,
+                      locationGeoPoint.longitude,
+                    ),
+                    rotate: true,
+                    alignment: Alignment(0, -1),
+                    child: Icon(
+                      Icons.location_on,
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 32,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          children: [
-            TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-              tileProvider: CancellableNetworkTileProvider(),
-            ),
-            MarkerLayer(
-              markers: [
-                Marker(
-                  point: LatLng(
-                    locationGeoPoint.latitude,
-                    locationGeoPoint.longitude,
-                  ),
-                  rotate: true,
-                  alignment: Alignment(0, -1),
-                  child: Icon(
-                    Icons.location_on,
-                    color: Theme.of(context).colorScheme.primary,
-                    size: 32,
-                  ),
-                ),
-              ],
-            ),
-          ],
         ),
       ),
     );
