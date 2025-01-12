@@ -102,13 +102,9 @@ class LocationDetailView extends StatelessWidget {
                                 constraints: BoxConstraints(maxHeight: 500),
                                 child: SizedBox(
                                   width: double.infinity,
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      image: DecorationImage(
-                                        image: NetworkImage(locationImageUrl),
-                                      ),
-                                    ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(locationImageUrl),
                                   ),
                                 ),
                               ),
