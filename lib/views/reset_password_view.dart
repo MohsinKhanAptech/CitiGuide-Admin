@@ -54,7 +54,7 @@ class ResetPasswordView extends StatelessWidget {
                     SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: () {
-                        controller.updatePassword(newPasswordController.text);
+                        controller.resetPassword(newPasswordController.text);
                         newPasswordController.clear();
                       },
                       child: const Text('Confirm'),

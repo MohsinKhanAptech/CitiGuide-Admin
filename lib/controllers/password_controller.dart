@@ -132,7 +132,10 @@ class PasswordController extends GetxController {
           sha256.convert(utf8.encode(newPassword)).toString();
 
       if (masterPassword != encryptedPassword) {
-        Get.snackbar('Wrong Password.', 'Please enter the correct password.');
+        Get.snackbar(
+          'Wrong Password.',
+          'Please enter the correct master password.',
+        );
       } else {
         isLoading.value = true;
 
